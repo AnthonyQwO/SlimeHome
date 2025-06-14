@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://t0vka0ios3we"]
+
+[ext_resource type="Script" uid="uid://dcktqxi2hre4g" path="res://room.gd" id="1_axjh2"]
+[ext_resource type="PackedScene" uid="uid://be62f826s6hi8" path="res://charater.tscn" id="1_gw2vq"]
+[ext_resource type="PackedScene" uid="uid://do2kgdyymku8y" path="res://wall.tscn" id="1_u3qo1"]
+[ext_resource type="PackedScene" uid="uid://ccoru5jidc1ft" path="res://floor.tscn" id="2_61bxy"]
+[ext_resource type="Texture2D" uid="uid://dvfmnvvuillk0" path="res://SkyProfile.png" id="4_61bxy"]
+[ext_resource type="Script" uid="uid://blxf5dmyrg3uh" path="res://window.gd" id="5_1loai"]
+[ext_resource type="PackedScene" uid="uid://75ouvcnugvxr" path="res://textPanel.tscn" id="7_vbd26"]
+[ext_resource type="Script" uid="uid://b2bfwieeo0p4c" path="res://navigation_region_3d.gd" id="8_axjh2"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1loai"]
+panorama = ExtResource("4_61bxy")
+energy_multiplier = 1.52
+
+[sub_resource type="Sky" id="Sky_hgg63"]
+sky_material = SubResource("PanoramaSkyMaterial_1loai")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_u3qo1"]
+background_mode = 2
+sky = SubResource("Sky_hgg63")
+tonemap_mode = 3
+tonemap_exposure = 1.25
+tonemap_white = 16.0
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+glow_intensity = 0.0
+glow_bloom = 1.0
+glow_hdr_scale = 1.0
+glow_hdr_luminance_cap = 1.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_61bxy"]
+dof_blur_far_enabled = true
+dof_blur_near_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_4v3hs"]
+vertices = PackedVector3Array(-4.5, 0.564019, -1.75434, -3.75, 0.564019, -1.75434, -3.25, 0.564019, -2.75434, -4.5, 0.564019, -4.50434, 3.25, 0.564019, -1.25434, 3.5, 0.564019, -0.254336, 4.5, 0.564019, -0.254336, 4.5, 0.564019, -4.50434, 1.75, 0.564019, -1.25434, -2, 0.564019, -2.75434, -1.5, 0.564019, -1.25434, 1.25, 0.564019, -0.504336, -3.5, 0.564019, -0.504336, -4.5, 0.564019, 4.49566, -3.75, 0.564019, 2.99566, -3.5, 0.564019, 4.49566, 3, 0.564019, 0.995664, 4.5, 0.564019, 4.49566, -2, 0.564019, -0.504336, -3.25, 0.564019, 2.49566, -1.5, 0.564019, 2.74566, 1.75, 0.564019, 0.995664, -1.75, 0.564019, 4.49566)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(4, 8, 7), PackedInt32Array(7, 8, 9), PackedInt32Array(7, 9, 3), PackedInt32Array(9, 2, 3), PackedInt32Array(11, 10, 8), PackedInt32Array(8, 10, 9), PackedInt32Array(1, 12, 0), PackedInt32Array(0, 12, 14), PackedInt32Array(0, 14, 13), PackedInt32Array(14, 15, 13), PackedInt32Array(5, 6, 16), PackedInt32Array(16, 6, 17), PackedInt32Array(10, 11, 18), PackedInt32Array(18, 11, 21), PackedInt32Array(18, 21, 20), PackedInt32Array(18, 20, 19), PackedInt32Array(16, 17, 21), PackedInt32Array(21, 17, 20), PackedInt32Array(20, 17, 22), PackedInt32Array(14, 12, 19), PackedInt32Array(19, 12, 18)]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_axjh2"]
+
+[node name="Room" type="Node3D"]
+script = ExtResource("1_axjh2")
+
+[node name="WallR" parent="." instance=ExtResource("1_u3qo1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2.5, 0)
+wall_class = 2
+
+[node name="WallL" parent="." instance=ExtResource("1_u3qo1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2.5, 0)
+wall_class = 1
+
+[node name="Wall" parent="." instance=ExtResource("1_u3qo1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.709571, -0.704634, -4.23758e-08, 0.451515, -0.454679, 0.767725, -0.540965, 0.544755, 0.64078, 0, 10, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u3qo1")
+camera_attributes = SubResource("CameraAttributesPractical_61bxy")
+
+[node name="Window" type="Window" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(1152, 648)
+script = ExtResource("5_1loai")
+
+[node name="TextPanel" parent="Window" instance=ExtResource("7_vbd26")]
+z_index = 1
+position = Vector2(112, 80)
+
+[node name="Camera3D" type="Camera3D" parent="Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1427, 10.1147)
+fov = 44.6
+
+[node name="Charater" parent="." instance=ExtResource("1_gw2vq")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00271487, 0.0105977, -0.00689268)
+navigation_mesh = SubResource("NavigationMesh_4v3hs")
+script = ExtResource("8_axjh2")
+
+[node name="Floor" parent="NavigationRegion3D" instance=ExtResource("2_61bxy")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46203, 0.78055, -0.175766)
+mesh = SubResource("CylinderMesh_axjh2")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15603, 0.0334692, -1.41738)
+mesh = SubResource("CylinderMesh_axjh2")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/MeshInstance3D/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.155, -1, 5.149)
+mesh = SubResource("CylinderMesh_axjh2")
+skeleton = NodePath("")

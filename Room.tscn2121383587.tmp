@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://t0vka0ios3we"]
+
+[ext_resource type="PackedScene" uid="uid://be62f826s6hi8" path="res://charater.tscn" id="1_gw2vq"]
+[ext_resource type="PackedScene" uid="uid://do2kgdyymku8y" path="res://wall.tscn" id="1_u3qo1"]
+[ext_resource type="PackedScene" uid="uid://ccoru5jidc1ft" path="res://floor.tscn" id="2_61bxy"]
+[ext_resource type="Texture2D" uid="uid://dvfmnvvuillk0" path="res://SkyProfile.png" id="4_61bxy"]
+[ext_resource type="Script" uid="uid://blxf5dmyrg3uh" path="res://window.gd" id="5_1loai"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1loai"]
+panorama = ExtResource("4_61bxy")
+energy_multiplier = 1.52
+
+[sub_resource type="Sky" id="Sky_hgg63"]
+sky_material = SubResource("PanoramaSkyMaterial_1loai")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_u3qo1"]
+background_mode = 2
+sky = SubResource("Sky_hgg63")
+tonemap_mode = 3
+tonemap_exposure = 1.25
+tonemap_white = 16.0
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+glow_intensity = 0.0
+glow_bloom = 1.0
+glow_hdr_scale = 1.0
+glow_hdr_luminance_cap = 1.0
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_61bxy"]
+dof_blur_far_enabled = true
+dof_blur_near_enabled = true
+
+[node name="Room" type="Node3D"]
+
+[node name="WallR" parent="." instance=ExtResource("1_u3qo1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2.5, 0)
+
+[node name="WallL" parent="." instance=ExtResource("1_u3qo1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2.5, 0)
+
+[node name="Wall" parent="." instance=ExtResource("1_u3qo1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -5)
+
+[node name="Floor" parent="." instance=ExtResource("2_61bxy")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.709571, -0.704634, -4.23758e-08, 0.451515, -0.454679, 0.767725, -0.540965, 0.544755, 0.64078, 0, 10, 0)
+
+[node name="Charater" parent="." instance=ExtResource("1_gw2vq")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_u3qo1")
+camera_attributes = SubResource("CameraAttributesPractical_61bxy")
+
+[node name="Window" type="Window" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(1152, 648)
+script = ExtResource("5_1loai")
+
+[node name="Camera3D" type="Camera3D" parent="Window"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1427, 10.1147)
+fov = 44.6

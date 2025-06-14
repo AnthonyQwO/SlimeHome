@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://do2kgdyymku8y"]
+
+[ext_resource type="Script" uid="uid://dqdq54b3uwcbt" path="res://wall.gd" id="1_xxgf6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_oh6kn"]
+size = Vector3(10, 10, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxgf6"]
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.729412, 0.764706, 0.941176, 0)
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_y4f30"]
+data = PackedVector3Array(-5, 5, 0.1, 5, 5, 0.1, -5, -5, 0.1, 5, 5, 0.1, 5, -5, 0.1, -5, -5, 0.1, 5, 5, -0.1, -5, 5, -0.1, 5, -5, -0.1, -5, 5, -0.1, -5, -5, -0.1, 5, -5, -0.1, 5, 5, 0.1, 5, 5, -0.1, 5, -5, 0.1, 5, 5, -0.1, 5, -5, -0.1, 5, -5, 0.1, -5, 5, -0.1, -5, 5, 0.1, -5, -5, -0.1, -5, 5, 0.1, -5, -5, 0.1, -5, -5, -0.1, 5, 5, 0.1, -5, 5, 0.1, 5, 5, -0.1, -5, 5, 0.1, -5, 5, -0.1, 5, 5, -0.1, -5, -5, 0.1, 5, -5, 0.1, -5, -5, -0.1, 5, -5, 0.1, 5, -5, -0.1, -5, -5, -0.1)
+
+[node name="Wall" type="Node3D"]
+script = ExtResource("1_xxgf6")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_oh6kn")
+surface_material_override/0 = SubResource("StandardMaterial3D_xxgf6")
+
+[node name="Area3D" type="Area3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_y4f30")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_y4f30")
+
+[connection signal="area_entered" from="Floor/Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Floor/Area3D" to="." method="_on_area_3d_area_exited"]
+[connection signal="body_entered" from="Floor/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="tree_exited" from="Floor/Area3D/CollisionShape3D" to="." method="_on_collision_shape_3d_tree_exited"]
