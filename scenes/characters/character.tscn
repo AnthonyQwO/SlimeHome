@@ -1,9 +1,9 @@
 [gd_scene load_steps=26 format=3 uid="uid://be62f826s6hi8"]
 
-[ext_resource type="Script" uid="uid://b334sllfiq4la" path="res://navagation_character.gd" id="1_fa6su"]
-[ext_resource type="Texture2D" uid="uid://bhhu07e13jyga" path="res://3.png" id="2_fxnej"]
-[ext_resource type="Texture2D" uid="uid://b6bt203e2yir2" path="res://9.png" id="3_xg3e0"]
-[ext_resource type="Texture2D" uid="uid://b68lj14ornyep" path="res://10.png" id="4_fa6su"]
+[ext_resource type="Script" uid="uid://b334sllfiq4la" path="res://scripts/characters/navigation_character.gd" id="1_fa6su"]
+[ext_resource type="Texture2D" uid="uid://bhhu07e13jyga" path="res://assets/images/3.png" id="2_fxnej"]
+[ext_resource type="Texture2D" uid="uid://b6bt203e2yir2" path="res://assets/images/9.png" id="3_xg3e0"]
+[ext_resource type="Texture2D" uid="uid://b68lj14ornyep" path="res://assets/images/10.png" id="4_fa6su"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fa6su"]
 size = Vector3(1.54615, 1.06339, 0.336816)
@@ -84,7 +84,7 @@ region = Rect2(502, 0, 502, 501)
 atlas = ExtResource("4_fa6su")
 region = Rect2(502, 501, 502, 501)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_57kaf"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_kipbe"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -175,18 +175,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Charater" type="CharacterBody3D"]
+[node name="CharacterBody3D" type="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.12678, 1.38384)
 script = ExtResource("1_fa6su")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.631852, -0.00114521, -1.87323e-05, 0.00114521, 0.631852, -5.94638e-05, 1.88414e-05, 5.94294e-05, 0.631854, 0.00421842, 2.04668, 1.52996)
+transform = Transform3D(0.315926, -0.000572604, -9.36613e-06, 0.000572604, 0.315926, -2.97319e-05, 9.42071e-06, 2.97147e-05, 0.315927, 0.00210921, -0.0400496, 0.0730623)
 shape = SubResource("BoxShape3D_fa6su")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(0.199925, 0, 0, 0, 0.199925, 0, 0, 0, 0.199925, 0, 2.12678, 1.38384)
-sprite_frames = SubResource("SpriteFrames_57kaf")
+transform = Transform3D(0.0999626, 0, 0, 0, 0.0999626, 0, 0, 0, 0.0999626, 0, 0, 0)
+sprite_frames = SubResource("SpriteFrames_kipbe")
 animation = &"sleep"
 autoplay = "idle"
-frame_progress = 0.330954
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

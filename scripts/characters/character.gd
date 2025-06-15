@@ -1,4 +1,4 @@
-extends "res://character_body_3d.gd"
+extends "res://scripts/characters/character_body_3d.gd"
 
 
 const SPEED = 5.0

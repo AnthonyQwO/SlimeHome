@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://75ouvcnugvxr"]
 
-[ext_resource type="Script" uid="uid://bkdrackwuocl" path="res://rich_text_label.gd" id="1_wbooe"]
-[ext_resource type="Script" uid="uid://dsoeynlmwcrdq" path="res://button.gd" id="3_dos34"]
-[ext_resource type="Script" uid="uid://d2ux7ph5sb4vn" path="res://line_edit.gd" id="3_qvebp"]
-[ext_resource type="Script" uid="uid://kmmeicvujuph" path="res://http_request.gd" id="4_dos34"]
+[ext_resource type="Script" uid="uid://bkdrackwuocl" path="res://scripts/ui/rich_text_label.gd" id="1_wbooe"]
+[ext_resource type="Script" uid="uid://dsoeynlmwcrdq" path="res://scripts/components/button.gd" id="3_dos34"]
+[ext_resource type="Script" uid="uid://d2ux7ph5sb4vn" path="res://scripts/ui/line_edit.gd" id="3_qvebp"]
+[ext_resource type="Script" uid="uid://kmmeicvujuph" path="res://scripts/network/http_request.gd" id="4_dos34"]
 
 [node name="PanelController" type="Node2D"]
 

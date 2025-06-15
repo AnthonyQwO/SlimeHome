@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhhu07e13jyga"
-path.s3tc="res://.godot/imported/3.png-ab9dc1e38b41816b4ae4b69d0cb53034.s3tc.ctex"
+uid="uid://dvfmnvvuillk0"
+path.s3tc="res://.godot/imported/SkyProfile.png-f79b2f7de659b0692666a51499e93f4b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://3.png"
-dest_files=["res://.godot/imported/3.png-ab9dc1e38b41816b4ae4b69d0cb53034.s3tc.ctex"]
+source_file="res://assets/images/SkyProfile.png"
+dest_files=["res://.godot/imported/SkyProfile.png-f79b2f7de659b0692666a51499e93f4b.s3tc.ctex"]
 
 [params]
 

@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://t0vka0ios3we"]
 
-[ext_resource type="Script" uid="uid://dcktqxi2hre4g" path="res://room.gd" id="1_axjh2"]
-[ext_resource type="PackedScene" uid="uid://be62f826s6hi8" path="res://charater.tscn" id="1_gw2vq"]
-[ext_resource type="PackedScene" uid="uid://do2kgdyymku8y" path="res://wall.tscn" id="1_u3qo1"]
-[ext_resource type="PackedScene" uid="uid://ccoru5jidc1ft" path="res://floor.tscn" id="2_61bxy"]
-[ext_resource type="Texture2D" uid="uid://dvfmnvvuillk0" path="res://SkyProfile.png" id="4_61bxy"]
-[ext_resource type="Script" uid="uid://blxf5dmyrg3uh" path="res://window.gd" id="5_1loai"]
-[ext_resource type="PackedScene" uid="uid://75ouvcnugvxr" path="res://textPanel.tscn" id="7_vbd26"]
-[ext_resource type="Script" uid="uid://b2bfwieeo0p4c" path="res://navigation_region_3d.gd" id="8_axjh2"]
+[ext_resource type="Script" uid="uid://dcktqxi2hre4g" path="res://scripts/controllers/room.gd" id="1_axjh2"]
+[ext_resource type="PackedScene" uid="uid://be62f826s6hi8" path="res://scenes/characters/character.tscn" id="1_gw2vq"]
+[ext_resource type="PackedScene" uid="uid://do2kgdyymku8y" path="res://scenes/environment/wall.tscn" id="1_u3qo1"]
+[ext_resource type="PackedScene" uid="uid://ccoru5jidc1ft" path="res://scenes/environment/floor.tscn" id="2_61bxy"]
+[ext_resource type="Texture2D" uid="uid://dvfmnvvuillk0" path="res://assets/images/SkyProfile.png" id="4_61bxy"]
+[ext_resource type="Script" uid="uid://blxf5dmyrg3uh" path="res://scripts/components/window.gd" id="5_1loai"]
+[ext_resource type="PackedScene" uid="uid://75ouvcnugvxr" path="res://scenes/ui/textPanel.tscn" id="7_vbd26"]
+[ext_resource type="Script" uid="uid://b2bfwieeo0p4c" path="res://scripts/components/navigation_region_3d.gd" id="8_axjh2"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_1loai"]
 panorama = ExtResource("4_61bxy")
