@@ -6,7 +6,7 @@ load_dotenv()
 
 # Gemini API settings
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
 GEMINI_TEMPERATURE = 0.3
 GEMINI_MAX_TOKENS = 500
 
