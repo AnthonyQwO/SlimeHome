@@ -78,7 +78,6 @@ class PromptBuilder:
             current_input=current_input
         )
 
-        print("Prpmpt", prompt)
         
         return (prompt, current_input)
         
