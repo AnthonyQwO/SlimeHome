@@ -4,7 +4,7 @@ import requests
 import logging
 from typing import Dict, Any, Optional
 
-from config import (
+from src.config import (
     GEMINI_API_KEY,
     GEMINI_API_URL,
     GEMINI_TEMPERATURE,

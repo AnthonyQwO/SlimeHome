@@ -10,13 +10,13 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
-from gemini_client import GeminiClient
-from ollama_client import OllamaClient
-from config import AI_SERVICE
+from src.clients.gemini_client import GeminiClient
+from src.clients.ollama_client import OllamaClient
+from src.config import AI_SERVICE
 
-from prompt_builder import PromptBuilder
-from response_parser import ResponseParser
-from config import WS_HOST, WS_PORT, LOG_LEVEL
+from src.core.prompt_builder import PromptBuilder
+from src.core.response_parser import ResponseParser
+from src.config import WS_HOST, WS_PORT, LOG_LEVEL
 
 # 設定日誌
 logging.basicConfig(

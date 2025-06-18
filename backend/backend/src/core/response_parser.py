@@ -5,7 +5,7 @@ import json
 import logging
 from typing import Dict, Any, Optional
 
-from config import DEFAULT_RESPONSE
+from src.config import DEFAULT_RESPONSE
 
 logger = logging.getLogger(__name__)
 

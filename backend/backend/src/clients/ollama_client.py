@@ -4,7 +4,7 @@ import requests
 import logging
 from typing import Dict, Any, Optional
 
-from config import (
+from src.config import (
     OLLAMA_API_URL,
     OLLAMA_MODEL,
     OLLAMA_TEMPERATURE,
