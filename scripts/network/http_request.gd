@@ -24,7 +24,7 @@ func send_messenge(messenge: String):
 	var headers = ["Content-Type: application/json"]
 
 	# 發送 POST 請求
-	var error = http_request.request("http://192.168.0.108:8000/api/test", headers, HTTPClient.METHOD_POST, json_body)
+	var error = http_request.request("http://localhost:8000/api/test", headers, HTTPClient.METHOD_POST, json_body)
 	
 	print("Send: " + messenge)
 	if error != OK:
