@@ -16,7 +16,7 @@ from config import AI_SERVICE
 
 from prompt_builder import PromptBuilder
 from response_parser import ResponseParser
-from config import WS_HOST, WS_PORT, LOG_LEVEL, DEBUG_MODE
+from config import WS_HOST, WS_PORT, LOG_LEVEL
 
 # 設定日誌
 logging.basicConfig(
@@ -25,14 +25,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# 初始化 FastAPI 應用程式
+# Initialize FastAPI application
 app = FastAPI(
     title="Slime Simulation Backend",
     description="AI-powered backend for interactive slime simulation",
     version="0.1.0"
 )
 
-# 允許跨域請求
+# Allow CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 允許所有來源，生產環境中應該限制
@@ -41,7 +41,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 初始化組件
+# Initialize components
 if AI_SERVICE == "ollama":
     ai_client = OllamaClient()
     logger.info("Using Ollama AI service")
@@ -51,13 +51,13 @@ else:
 prompt_builder = PromptBuilder()
 response_parser = ResponseParser()
 
-# 保存活躍連接
+# Store active connections
 active_connections: List[WebSocket] = []
 
 @app.get("/health")
 async def health_check():
     """健康檢查端點"""
-    return {"status": "ok", "mode": "test" if DEBUG_MODE else "production"}
+    return {"status": "ok"}
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
@@ -105,13 +105,9 @@ async def test_endpoint(state_data: Dict[str, Any]):
     try:
         (prompt, user_input) = prompt_builder.build_prompt(state_data)
         ai_response = await ai_client.generate_response(prompt)
-        print("!!!RESPONSE: ", ai_response)
+        logger.info(f"AI response received: {ai_response}")
         prompt_builder.update_dialogue_history(user_input, ai_response)
         return ai_response
-    
-        validated_response = response_parser.parse_and_validate(ai_response)
-        print("validate: ", validated_response)
-        return validated_response
     
     except Exception as e:
         logger.error(f"Error in test endpoint: {e}")
