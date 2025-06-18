@@ -30,5 +30,5 @@ DEFAULT_RESPONSE = {
         "targetX": 0,
         "targetZ": 0
     },
-    "narration": "Slime is resting..."
+    "narration": "Slime is resting... (THIS IS A DEFAULT_RESPONSE)"
 }
