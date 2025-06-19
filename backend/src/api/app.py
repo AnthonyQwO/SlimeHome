@@ -15,12 +15,12 @@ from src.clients.ollama_client import OllamaClient
 from src.config import AI_SERVICE
 
 from src.core.prompt_builder import PromptBuilder
-from src.config import WS_HOST, WS_PORT, LOG_LEVEL
+from src.config import WS_HOST, WS_PORT, LOG_LEVEL, LOG_FORMAT
 
 # 設定日誌
 logging.basicConfig(
     level=getattr(logging, LOG_LEVEL),
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format=LOG_FORMAT
 )
 logger = logging.getLogger(__name__)
 

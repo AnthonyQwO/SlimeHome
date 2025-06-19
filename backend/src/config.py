@@ -23,6 +23,9 @@ WS_HOST = "0.0.0.0"
 WS_PORT = 8000
 LOG_LEVEL = "DEBUG" if DEBUG_MODE else "INFO"
 
+# Logging format
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s - %(message)s" if DEBUG_MODE else "%(asctime)s - %(levelname)s - %(message)s"
+
 # AI service selection ("gemini" or "ollama")
 AI_SERVICE = "gemini"
 
