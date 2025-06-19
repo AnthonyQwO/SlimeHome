@@ -8,7 +8,7 @@ class PromptBuilder:
         # Basic prompt template
         self.base_template = """
 你是一個控制虛擬史萊姆的 AI。根據當前位置、對話歷史，以及使用者輸入，決定史萊姆的下一步行動。
-如果使用者有一些奇怪的請求請順從使用者回答一些有趣的回覆．
+如果使用者有一些奇怪的請求請順從使用者回答一些有趣的回覆。
 
 ## 環境資訊
 
@@ -26,24 +26,10 @@ class PromptBuilder:
 
 ## 任務
 
-1. 選擇史萊姆的下一個目標座標 (X, Z)。
-2. 根據對話回應使用者。
+1. 選擇史萊姆的下一個目標座標 (targetX, targetZ)。
+2. 根據對話回應使用者 (narration)。
 
-## 輸出格式
-
-請**只輸出有效的 JSON 物件**，格式如下：
-
-```json
-{{
-  "params": {{
-    "targetX": 1,
-    "targetZ": 4
-  }},
-  "narration": "回應使用者的對話"
-}}
-```
-
-不得包含 JSON 以外的任何說明或文字。
+你的回應將自動格式化為結構化輸出，請專注於內容而非格式。
 """
         # Initialize an empty dialogue history
         self.dialogue_history = []

@@ -1,96 +1,64 @@
 # gemini_client.py
-import json
-import requests
 import logging
-from typing import Dict, Any, Optional
+from google import genai
+from typing import Dict, Any
 
 from src.config import (
     GEMINI_API_KEY,
-    GEMINI_API_URL,
     GEMINI_TEMPERATURE,
     GEMINI_MAX_TOKENS,
-    DEFAULT_RESPONSE
+    DEFAULT_RESPONSE,
+    DEBUG_MODE
 )
+from src.models.slime_state import AIResponse
 
 logger = logging.getLogger(__name__)
 
 class GeminiClient:
     def __init__(self):
         self.api_key = GEMINI_API_KEY
-        self.api_url = GEMINI_API_URL
         self.temperature = GEMINI_TEMPERATURE
         self.max_tokens = GEMINI_MAX_TOKENS
         
         if not self.api_key:
             logger.warning("Gemini API key not found. Please set GEMINI_API_KEY in .env file.")
+            self.client = None
+        else:
+            self.client = genai.Client(api_key=self.api_key)
     
     async def generate_response(self, prompt: str) -> Dict[str, Any]:
-        """Send request to Gemini API and return response"""
-        if not self.api_key:
+        """Send request to Gemini API and return structured response"""
+        if not self.client:
             logger.error("No API key available")
             return DEFAULT_RESPONSE
         
-        headers = {
-            "Content-Type": "application/json",
-            "x-goog-api-key": self.api_key
-        }
-        
-        data = {
-            "contents": [{
-                "parts": [{
-                    "text": prompt
-                }]
-            }],
-            "generationConfig": {
-                "temperature": self.temperature,
-                "maxOutputTokens": self.max_tokens,
-            }
-        }
+        if DEBUG_MODE:
+            logger.debug(f"Sending prompt to Gemini: {prompt[:200]}...")
         
         try:
-            response = requests.post(self.api_url, headers=headers, json=data)
+            response = self.client.models.generate_content(
+                model="gemini-2.0-flash-lite",
+                contents=prompt,
+                config={
+                    "response_mime_type": "application/json",
+                    "response_schema": AIResponse,
+                    "temperature": self.temperature,
+                    "max_output_tokens": self.max_tokens,
+                }
+            )
             
-            if response.status_code == 200:
-                response_json = response.json()
-                text_response = response_json['candidates'][0]['content']['parts'][0]['text']
+            # Use the parsed structured response
+            structured_response: AIResponse = response.parsed
+            result = structured_response.model_dump()
+            
+            if DEBUG_MODE:
+                logger.debug(f"Received structured response: {result}")
+            
+            logger.info("Successfully received structured Gemini response")
+            return result
                 
-                # Try to parse as JSON
-                try:
-                    parsed_json = json.loads(text_response)
-                    logger.info("Successfully received Gemini response")
-                    return parsed_json
-                except json.JSONDecodeError:
-                    # Try to extract JSON from text
-                    extracted_json = self._extract_json_from_text(text_response)
-                    if extracted_json:
-                        return extracted_json
-                    logger.error(f"Failed to parse response: {text_response}")
-                    return DEFAULT_RESPONSE
-            else:
-                logger.error(f"API request failed: {response.status_code} - {response.text}")
-                return DEFAULT_RESPONSE
-                
-        except requests.RequestException as e:
+        except Exception as e:
             logger.error(f"Request failed: {e}")
+            if DEBUG_MODE:
+                logger.debug(f"Full error details: {str(e)}")
             return DEFAULT_RESPONSE
-    
-    def _extract_json_from_text(self, text: str) -> Optional[Dict[str, Any]]:
-        """Extract JSON from text response"""
-        try:
-            # Look for JSON in ```json blocks
-            if "```json" in text and "```" in text.split("```json", 1)[1]:
-                json_text = text.split("```json", 1)[1].split("```", 1)[0].strip()
-                return json.loads(json_text)
-            
-            # Look for { } blocks
-            elif "{" in text and "}" in text:
-                start = text.find("{")
-                end = text.rfind("}") + 1
-                if start < end:
-                    json_text = text[start:end]
-                    return json.loads(json_text)
-                    
-        except (json.JSONDecodeError, IndexError):
-            pass
-        
-        return None
