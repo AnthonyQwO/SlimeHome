@@ -15,7 +15,6 @@ from src.clients.ollama_client import OllamaClient
 from src.config import AI_SERVICE
 
 from src.core.prompt_builder import PromptBuilder
-from src.core.response_parser import ResponseParser
 from src.config import WS_HOST, WS_PORT, LOG_LEVEL
 
 # 設定日誌
@@ -49,7 +48,6 @@ else:
     ai_client = GeminiClient()
     logger.info("Using Gemini AI service")
 prompt_builder = PromptBuilder()
-response_parser = ResponseParser()
 
 # Store active connections
 active_connections: List[WebSocket] = []
@@ -78,11 +76,10 @@ async def websocket_endpoint(websocket: WebSocket):
                 # 處理狀態數據
                 prompt = prompt_builder.build_prompt(state_data)
                 ai_response = await ai_client.generate_response(prompt)
-                validated_response = response_parser.parse_and_validate(ai_response)
                 
                 # 返回處理後的回應
-                await websocket.send_text(json.dumps(validated_response))
-                logger.debug(f"Sent response: {validated_response}")
+                await websocket.send_text(json.dumps(ai_response))
+                logger.debug(f"Sent response: {ai_response}")
                 
             except json.JSONDecodeError as e:
                 logger.error(f"Invalid JSON received: {e}")
