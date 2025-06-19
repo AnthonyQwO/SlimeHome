@@ -32,8 +32,7 @@ class GeminiClient:
             logger.error("No API key available")
             return DEFAULT_RESPONSE
         
-        if DEBUG_MODE:
-            logger.debug(f"Sending prompt to Gemini: {prompt[:200]}...")
+        logger.info("Sending user prompt to Gemini API...")
         
         try:
             response = self.client.models.generate_content(
@@ -51,10 +50,7 @@ class GeminiClient:
             structured_response: AIResponse = response.parsed
             result = structured_response.model_dump()
             
-            if DEBUG_MODE:
-                logger.debug(f"Received structured response: {result}")
-            
-            logger.info("Successfully received structured Gemini response")
+            logger.info(f"Slime says: {result['narration']}")
             return result
                 
         except Exception as e:
