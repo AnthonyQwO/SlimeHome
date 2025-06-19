@@ -110,10 +110,15 @@ async def test_endpoint(state_data: Dict[str, Any]):
     測試 API 端點，模擬 WebSocket 通訊
     用於在沒有 Godot 客戶端的情況下測試
     """
+    import time
+    logger.info(f"Request received from Godot at {time.strftime('%H:%M:%S')}")
+    
     try:
         (prompt, user_input) = prompt_builder.build_prompt(state_data)
+        logger.info(f"Prompt built, sending to AI...")
+        
         ai_response = await ai_client.generate_response(prompt)
-        logger.info(f"AI response received: {ai_response}")
+        
         prompt_builder.update_dialogue_history(user_input, ai_response)
         return ai_response
     

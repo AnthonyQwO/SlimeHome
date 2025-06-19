@@ -6,13 +6,17 @@ var http_request: HTTPRequest
 @onready var ch = $"../../../Charater"
 
 func _ready():
-	pass
-	
-func send_messenge(messenge: String):
-	# 建立 HTTPRequest 節點並連接信號
+	# 創建一個持久的HTTPRequest節點
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
+	
+	# 設定超時時間為10秒
+	http_request.timeout = 10.0
+	print("HTTPRequest node initialized with timeout: " + str(http_request.timeout))
+	
+func send_messenge(messenge: String):
+	print("Sending message: " + messenge + " at " + Time.get_datetime_string_from_system())
 
 	# 生成測試狀態資料
 	var state = generate_test_state(ch.position, messenge)
@@ -24,9 +28,12 @@ func send_messenge(messenge: String):
 	var headers = ["Content-Type: application/json"]
 
 	# 發送 POST 請求
-	var error = http_request.request("http://localhost:8000/api/test", headers, HTTPClient.METHOD_POST, json_body)
+	print("Sending request to: http://127.0.0.1:8000/api/test")
+	print("Request body: " + json_body)
+	var error = http_request.request("http://127.0.0.1:8000/api/test", headers, HTTPClient.METHOD_POST, json_body)
 	
-	print("Send: " + messenge)
+	print("HTTP request sent at " + Time.get_datetime_string_from_system())
+	print("Request error code: " + str(error))
 	if error != OK:
 		push_error("HTTP 請求發生錯誤，錯誤碼: %d" % error)
 
@@ -44,8 +51,17 @@ func generate_test_state(pos: Vector3, messenge: String) -> Dictionary:
 	}
 
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+	print("Response received at " + Time.get_datetime_string_from_system())
+	print("Request result: " + str(result))
+	print("Response code: " + str(response_code))
+	
+	if result != HTTPRequest.RESULT_SUCCESS:
+		push_error("HTTP 請求失敗，結果碼: %d" % result)
+		return
+	
 	if response_code == 200:
 		var response_text = body.get_string_from_utf8()
+		print("Response body: " + response_text)
 		var json_result = JSON.parse_string(response_text)
 		if json_result != null:
 			print("後端回應:")
