@@ -10,6 +10,8 @@
 
 [觀看 YouTube 示範影片](https://www.youtube.com/watch?v=AZt7r733Zic)
 
+[觀看 Short 示範影片](https://youtube.com/shorts/YNq_v5s1RtM?si=1z1Fo_-yegFhupVd)
+
 ## 使用技術
 
 * **Godot Engine 4.x**：跨平台遊戲開發引擎
