@@ -10,7 +10,7 @@
 
 [觀看 YouTube 示範影片](https://www.youtube.com/watch?v=AZt7r733Zic)
 
-## 🔧 使用技術
+## 使用技術
 
 * **Godot Engine 4.x**：跨平台遊戲開發引擎
 * **Python FastAPI**：後端 API 架構
