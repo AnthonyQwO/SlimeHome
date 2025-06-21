@@ -22,7 +22,7 @@
 
 ```
 SlimeHome/
-├── assets/                # 遊戲圖像與素材
+├── assets/               # 遊戲圖像與素材
 │   ├── icons/
 │   └── images/
 ├── backend/              # Python FastAPI 後端
